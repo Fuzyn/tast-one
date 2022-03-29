@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+
+const checkNumber = (evt) => {
+  if(evt.key === 'Enter'){
+  return console.log(evt.target.value)}
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input type='number' placeholder="Wpisz liczbę i naciśnij Enter!" onKeyPress={checkNumber.bind(this)}/>
     </div>
   );
 }
