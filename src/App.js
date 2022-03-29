@@ -32,7 +32,7 @@ function App() {
       //If responsible for displaying the message, when there is no single number that is divisible by 3 
       if (tableDivisibleNumber.length === 0) {
         evt.target.value = '';
-        return setUserAnswerTable(['Brak liczb podzielnych przez 3!'])
+        return setUserAnswerTable(['No numbers that are divisible by 3!'])
       };
     };
     //Clears input and updates user table numbers divisible by 3
@@ -76,11 +76,11 @@ function App() {
 
   return (
     <div className="App">
-      <h1 className='title'>Wpisz liczbę od 0 do 10 000 000</h1>
+      <h1 className='title'>Enter a number between 0 and 10 000 000</h1>
       <input
         className='input'
         type='number'
-        placeholder="Wpisz liczbę i naciśnij Enter!"
+        placeholder="Enter a number and press Enter!"
         onKeyPress={checkNumber.bind(this)}
         value={value}
         onChange={(e) => {
