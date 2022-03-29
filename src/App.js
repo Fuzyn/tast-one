@@ -20,6 +20,11 @@ function App() {
         }
       }
       evt.target.value = '';
+      if(tableDivisibleNumber.length === 0){
+        return(
+          setUserAnswerTable(['Brak liczb podzielnych przez 3!'])
+        )
+      }
       return setUserAnswerTable(tableDivisibleNumber)
     }
   }
@@ -28,13 +33,19 @@ function App() {
     <div className="App">
       <h1 className='title'>Wpisz liczbę od 0 do 10 000 000</h1>
       <input
-      className='input'
+        className='input'
         type='number'
         placeholder="Wpisz liczbę i naciśnij Enter!"
         onKeyPress={checkNumber.bind(this)}
         value={value}
         onChange={(e) => {
-          const value = parseInt(e.target.value, 10);
+          const value = () => {
+            if (e.target.value === 'number') {
+              return parseInt(e.target.value, 10)
+            } else {
+              return
+            }
+          };
 
           if (value > max) value = max;
           if (value < min) value = min;
@@ -42,9 +53,9 @@ function App() {
           setValue(value);
         }} />
       <div className='user_answer'>
-          {userAnswerTable.map((value) => (
-            <p>{value}</p>
-          ))}
+        {userAnswerTable.map((value, index) => (
+          <p key={index}>{value}</p>
+        ))}
       </div>
     </div>
   );
