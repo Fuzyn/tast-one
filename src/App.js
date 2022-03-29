@@ -39,18 +39,11 @@ function App() {
         onKeyPress={checkNumber.bind(this)}
         value={value}
         onChange={(e) => {
-          const value = () => {
-            if (e.target.value === 'number') {
-              return parseInt(e.target.value, 10)
-            } else {
-              return
-            }
-          };
-
-          if (value > max) value = max;
-          if (value < min) value = min;
-
-          setValue(value);
+          let values = parseInt(e.target.value, 10)
+          if (values > max) {return setValue(max)};
+          if (values < min) {return setValue(min)};
+          
+          setValue(values)
         }} />
       <div className='user_answer'>
         {userAnswerTable.map((value, index) => (
