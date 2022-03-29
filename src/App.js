@@ -3,31 +3,45 @@ import { useEffect, useState } from 'react';
 
 function App() {
 
+  // Hook responsible for enter number entered
   const [value, setValue] = useState();
+  // Hook responsible for the result of numbers divisible by 3
   const [userAnswerTable, setUserAnswerTable] = useState([])
+  //Hook responsible for turn on loading component
   const [loading, setLoading] = useState(false)
 
+  //Min and max value, which user could typed
   const min = 0
   const max = 10000000
 
+  //Function responible for choose of numbers divisible by 3
   const checkNumber = (evt) => {
+    //Empty table for numbers divisible by 3
     let tableDivisibleNumber = [];
     if (evt.key === 'Enter') {
+      //Turn on Loading component
       setLoading(true)
+      //Clear input
       setValue();
+      //Loop responsible for choose of numbers divisible by 3 
       for (let i = 1; i <= evt.target.value; i++) {
         if (i % 3 === 0) {
           tableDivisibleNumber.push(i)
         };
       };
+      //If responsible for displaying the message, when there is no single number that is divisible by 3 
       if (tableDivisibleNumber.length === 0) {
+        evt.target.value = '';
         return setUserAnswerTable(['Brak liczb podzielnych przez 3!'])
       };
     };
+    //Clears input and updates user table numbers divisible by 3
     evt.target.value = '';
     return setUserAnswerTable(tableDivisibleNumber)
 
   }
+
+  //Component displaying tables with data, or loading component
   const loadingComponent = () => {
     if (loading === false) {
       return (
@@ -55,6 +69,7 @@ function App() {
     }
   }
 
+  //Hook responsible for turn off loading component
   useEffect(() => (
     setLoading(false)
   ), [userAnswerTable])
