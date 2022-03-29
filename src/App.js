@@ -1,33 +1,63 @@
 import './App.css';
-import { useState } from 'react';
-
-
+import { useEffect, useState } from 'react';
 
 function App() {
 
   const [value, setValue] = useState();
   const [userAnswerTable, setUserAnswerTable] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const min = 0
   const max = 10000000
 
   const checkNumber = (evt) => {
-    let tableDivisibleNumber = []
+    let tableDivisibleNumber = [];
     if (evt.key === 'Enter') {
+      setLoading(true)
+      setValue();
       for (let i = 1; i <= evt.target.value; i++) {
         if (i % 3 === 0) {
           tableDivisibleNumber.push(i)
-        }
-      }
-      evt.target.value = '';
-      if(tableDivisibleNumber.length === 0){
-        return(
-          setUserAnswerTable(['Brak liczb podzielnych przez 3!'])
-        )
-      }
-      return setUserAnswerTable(tableDivisibleNumber)
+        };
+      };
+      if (tableDivisibleNumber.length === 0) {
+        return setUserAnswerTable(['Brak liczb podzielnych przez 3!'])
+      };
+    };
+    evt.target.value = '';
+    return setUserAnswerTable(tableDivisibleNumber)
+
+  }
+  const loadingComponent = () => {
+    if (loading === false) {
+      return (
+        userAnswerTable.map((value, index) => (
+          <p key={index}>{value}</p>
+        ))
+      )
+    } else if (loading === true) {
+      return (
+        <div className='loading-main'>
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+          <div className='loading' />
+        </div>
+      )
+    } else {
+      return
     }
   }
+
+  useEffect(() => (
+    setLoading(false)
+  ), [userAnswerTable])
 
   return (
     <div className="App">
@@ -39,16 +69,14 @@ function App() {
         onKeyPress={checkNumber.bind(this)}
         value={value}
         onChange={(e) => {
-          let values = parseInt(e.target.value, 10)
-          if (values > max) {return setValue(max)};
-          if (values < min) {return setValue(min)};
-          
-          setValue(values)
+          let value = parseInt(e.target.value, 10)
+          if (value > max) { return setValue(max) };
+          if (value < min) { return setValue(min) };
+
+          setValue(value)
         }} />
       <div className='user_answer'>
-        {userAnswerTable.map((value, index) => (
-          <p key={index}>{value}</p>
-        ))}
+        {loadingComponent()}
       </div>
     </div>
   );
